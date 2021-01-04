@@ -26,16 +26,44 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateBookStatus = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-    .then(status=>{
-      console.log(status)
+  updateBookStatus = async (book, shelf) => {
+
+    try {
+      const updatedAPIValue = await BooksAPI.update(book, shelf);
+      const changeToArr = Object.values(updatedAPIValue).flat();
+      const booksInfoArray = await Promise.all(changeToArr.map(bookId=>{
+        return this.newBookInfo(bookId)
+      }));
+      console.log(booksInfoArray)
+
       this.setState((preState)=>({
-        bookList: preState.bookList.concat(status),
+        bookList: booksInfoArray,
       }))
-    })
+
+    } catch (err) {
+      console.log(err);
+    }
 
   }
+
+
+  newBookInfo = async (book) => {
+    try {
+      const bookInfo = await BooksAPI.get(book)
+        .then(result=>result)
+
+        console.log(bookInfo)
+        return bookInfo;
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+
+
+
+
 
 
   render() {

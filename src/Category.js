@@ -8,15 +8,16 @@ class Category extends Component {
   }
 
   updateBookShelf = (e) => {
-    const bookObj = {id: this.props.book.id};
-    console.log(bookObj)
+    const bookObj = this.props.book;
+    //console.log(bookObj)
     const shelf = e.target.value;
 
     this.setState((preState)=>({
       shelfValue: shelf,
     }))
+
     if (this.props.updateBookStatus) {
-    this.props.updateBookStatus(bookObj, this.state.shelfValue);
+    this.props.updateBookStatus(bookObj, shelf);
     }
   }
 
