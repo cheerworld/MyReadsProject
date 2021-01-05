@@ -19,10 +19,47 @@ class Category extends Component {
 
 
   render() {
-    const { book } = this.props;
+    const { book, matchShelf } = this.props;
+
 
 
     return (
+      matchShelf? (<li key={book.id}>
+      <div className="book">
+        <div className="book-top">
+          <div
+            className="book-cover"
+            style={{
+              width: 128,
+              height: 193,
+              backgroundImage: `url(${book.imageLinks.thumbnail})`
+            }}
+          />
+          <div className="book-shelf-changer">
+            <select value={matchShelf || "none"} onChange={this.updateBookShelf}>
+              <option value="move" disabled>
+                Move to...
+              </option>
+              <option value="currentlyReading">
+              {matchShelf==="currentlyReading" && "\u2713"}
+              Currently Reading</option>
+              <option value="wantToRead">
+              {matchShelf==="wantToRead" && "\u2713"}
+              Want to Read</option>
+              <option value="read">
+              {matchShelf==="read" && "\u2713"}
+              Read</option>
+              <option value="none">
+              {matchShelf==="none" && "\u2713"}
+              None</option>
+            </select>
+          </div>
+        </div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
+      </div>
+      </li>)
+      :(
       <li>
         <div className="book">
           <div className="book-top">
@@ -58,6 +95,7 @@ class Category extends Component {
           <div className="book-authors">{book.authors}</div>
         </div>
       </li>
+    )
     );
   }
 }
