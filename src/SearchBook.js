@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 
-let findBooks;
+
 class SearchBook extends Component {
 
   state = {
     query: "",
+    searchResults: [],
   }
 
 
@@ -16,11 +17,15 @@ class SearchBook extends Component {
 
     try {
       const value = e.target.value;
-      this.setState((preState)=>({
+      await this.setState((preState)=>({
         query: value,
       }),
       async ()=>{
-        findBooks = await BooksAPI.search(this.state.query)
+        const findBooks = await BooksAPI.search(this.state.query);
+        console.log(findBooks)
+        this.setState((preState)=>({
+          searchResults: findBooks,
+        }))
       }
     )
     } catch (err) {
@@ -34,8 +39,12 @@ class SearchBook extends Component {
 
   render () {
     //console.log(findBooks)
+    const { searchResults } = this.state;
+    console.log(searchResults)
     const controlledList =
-    findBooks && findBooks.map(book=>(
+    searchResults.error
+    ? <p>No Search Found</p>
+    : (searchResults.map(book=>(
       <li key={book.id}>
       <div className="book">
         <div className="book-top">
@@ -48,14 +57,22 @@ class SearchBook extends Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select value="none">
+            <select value={book.shelf || "none"}>
               <option value="move" disabled>
                 Move to...
               </option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
+              <option value="currentlyReading">
+              {book.shelf==="currentlyReading" && "\u2713"}
+              Currently Reading</option>
+              <option value="wantToRead">
+              {book.shelf==="wantToRead" && "\u2713"}
+              Want to Read</option>
+              <option value="read">
+              {book.shelf==="read" && "\u2713"}
+              Read</option>
+              <option value="none">
+              {book.shelf==="none" && "\u2713"}
+              None</option>
             </select>
           </div>
         </div>
@@ -63,7 +80,8 @@ class SearchBook extends Component {
         <div className="book-authors">{book.authors}</div>
       </div>
       </li>
-    ))
+    )))
+
 
     return (
       <div className="search-books">
@@ -99,3 +117,6 @@ class SearchBook extends Component {
 }
 
 export default SearchBook;
+/*
+
+*/

@@ -20,7 +20,7 @@ class Category extends Component {
 
   render() {
     const { book } = this.props;
-    
+
 
     return (
       <li>
@@ -39,10 +39,18 @@ class Category extends Component {
                 <option value="move" disabled>
                   Move to...
                 </option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
+                <option value="currentlyReading">
+                {book.shelf==="currentlyReading" && "\u2713"}
+                Currently Reading</option>
+                <option value="wantToRead">
+                {book.shelf==="wantToRead" && "\u2713"}
+                Want to Read</option>
+                <option value="read">
+                {book.shelf==="read" && "\u2713"}
+                Read</option>
+                <option value="none">
+                {book.shelf==="none" && "\u2713"}
+                None</option>
               </select>
             </div>
           </div>
