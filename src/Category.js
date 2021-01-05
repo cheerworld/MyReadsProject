@@ -3,10 +3,6 @@ import React, { Component } from "react";
 
 class Category extends Component {
 
-  state = {
-    shelfValue: "none",
-  }
-
   updateBookShelf = (e) => {
     const bookObj = this.props.book;
     //console.log(bookObj)
@@ -24,7 +20,7 @@ class Category extends Component {
 
   render() {
     const { book } = this.props;
-    const { shelfValue } = this.state;
+    
 
     return (
       <li>
@@ -39,7 +35,7 @@ class Category extends Component {
               }}
             />
             <div className="book-shelf-changer">
-              <select value={shelfValue} onChange={this.updateBookShelf}>
+              <select value={book.shelf || "none"} onChange={this.updateBookShelf}>
                 <option value="move" disabled>
                   Move to...
                 </option>
