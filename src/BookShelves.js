@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Category from "./Category";
+import BookInfo from "./BookInfo";
 
 class BookShelves extends Component {
 
@@ -16,7 +16,7 @@ class BookShelves extends Component {
               <ol className="books-grid">
                 {bookList.map(book => (
                   (book.shelf === "currentlyReading")&& (
-                    <Category key={book.id} book={book} updateBookStatus={updateBookStatus}/>
+                    <BookInfo key={book.id} book={book} updateBookStatus={updateBookStatus}/>
                   )
                 ))}
               </ol>
@@ -28,7 +28,7 @@ class BookShelves extends Component {
               <ol className="books-grid">
               {bookList.map(book => (
                 book.shelf === "wantToRead" && (
-                  <Category key={book.id} book={book} updateBookStatus={updateBookStatus}/>
+                  <BookInfo key={book.id} book={book} updateBookStatus={updateBookStatus}/>
                 )
               ))}
               </ol>
@@ -41,7 +41,7 @@ class BookShelves extends Component {
               <ol className="books-grid">
               {bookList.map(book => (
                 book.shelf === "read" && (
-                  <Category key={book.id} book={book} updateBookStatus={updateBookStatus}/>
+                  <BookInfo key={book.id} book={book} updateBookStatus={updateBookStatus}/>
                 )
               ))}
               </ol>

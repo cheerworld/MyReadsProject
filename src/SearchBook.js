@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
-import Category from './Category';
+import BookInfo from './BookInfo';
 
 
 class SearchBook extends Component {
@@ -18,10 +18,15 @@ class SearchBook extends Component {
 
     try {
       const value = e.target.value;
-      await this.setState((preState)=>({
+      this.setState((preState)=>({
         query: value,
       }),
       async ()=>{
+        if (this.state.query===""){
+          this.setState((preState)=>({
+            searchResults: [],
+          }))
+        }
         if (this.state.query!==""){
           const findBooks = await BooksAPI.search(this.state.query);
           console.log(findBooks)
@@ -56,7 +61,7 @@ class SearchBook extends Component {
       console.log("found", matchShelf)
 
       return (
-        <Category
+        <BookInfo
           key={book.id}
           book={book}
           matchShelf={matchShelf}
