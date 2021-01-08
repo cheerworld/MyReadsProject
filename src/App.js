@@ -5,6 +5,21 @@ import BookShelves from './BookShelves';
 import SearchBook from './SearchBook';
 import { Route, Link } from 'react-router-dom';
 
+const shelves = [
+  {
+    title: "Currently Reading",
+    id: "currentlyReading"
+  },
+  {
+    title: "Want To Read",
+    id: "wantToRead"
+  },
+  {
+    title: "Read",
+    id:"read"
+  }
+];
+
 class BooksApp extends React.Component {
   state = {
     bookList: [],
@@ -23,34 +38,21 @@ class BooksApp extends React.Component {
   updateBookStatus = async (book, shelf) => {
 
     try {
-      const updatedAPIValue = await BooksAPI.update(book, shelf);
-      const changeToArr = Object.values(updatedAPIValue).flat();
-      const booksInfoArray = await Promise.all(changeToArr.map(bookId=>{
-        return this.newBookInfo(bookId)
-      }));
-      //console.log(booksInfoArray)
+      await BooksAPI.update(book, shelf);
 
-      this.setState((preState)=>({
-        bookList: booksInfoArray,
-      }))
+      this.setState(({ bookList })=>{
+        let updateBookList = bookList.filter(({ id }) => id!==book.id);
+        console.log(updateBookList);
+        if (shelf!=="none") {
+          updateBookList = updateBookList.concat({...book, shelf})
+          console.log(updateBookList)
+        }
 
-    } catch (err) {
-      console.log(err);
-    }
-
-  }
-
-
-  newBookInfo = async (book) => {
-    try {
-      const bookInfo = await BooksAPI.get(book)
-        .then(result=>result)
-
-        console.log(bookInfo)
-        return bookInfo;
+        return {bookList: updateBookList};
+      });
 
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
 
   }
@@ -72,6 +74,7 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
               <BookShelves
+                shelves={shelves}
                 bookList={bookList}
                 updateBookStatus={this.updateBookStatus}
               />
@@ -94,5 +97,5 @@ class BooksApp extends React.Component {
     )
   }
 }
-//<button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+
 export default BooksApp
