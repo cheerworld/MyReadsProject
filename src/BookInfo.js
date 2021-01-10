@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import ControlSelect from './ControlSelect';
-//import * as BooksAPI from './BooksAPI';
 
 class BookInfo extends Component {
 
 
   render() {
-    const { book, matchShelf, shelf, updateBookStatus } = this.props;
+    const { book, updateBookStatus } = this.props;
 
     return (
-
       <li>
         <div className="book">
           <div className="book-top">
@@ -24,8 +22,6 @@ class BookInfo extends Component {
 
             <ControlSelect
               book={book}
-              shelf={shelf}
-              matchShelf={matchShelf}
               updateBookStatus={updateBookStatus}
              />
 

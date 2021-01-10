@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { shelves } from './Shelves';
 
 class ControlSelect extends Component {
 
@@ -14,25 +15,24 @@ class ControlSelect extends Component {
 
   render () {
 
-    const { book, matchShelf } = this.props;
+    const { book } = this.props;
 
     return (
       <div className="book-shelf-changer">
-        <select value={book.shelf || matchShelf || "none"} onChange={this.updateBookShelf}>
+        <select value={book.shelf} onChange={this.updateBookShelf}>
           <option value="move" disabled>
             Move to...
           </option>
-          <option value="currentlyReading">
-          {(book.shelf==="currentlyReading" || matchShelf ==="currentlyReading") && "\u2713"}
-          Currently Reading</option>
-          <option value="wantToRead">
-          {(book.shelf==="wantToRead" || matchShelf ==="wantToRead") && "\u2713"}
-          Want to Read</option>
-          <option value="read">
-          {(book.shelf ==="read" || matchShelf ==="read") && "\u2713"}
-          Read</option>
+
+          {shelves.map(({ id, title })=>(
+            <option key={id} value={id}>
+              {(book.shelf===id) && "\u2713"}
+              {title}
+            </option>
+          ))}
+
           <option value="none">
-          {(book.shelf ==="none" || matchShelf ==="none") && "\u2713"}
+          {(book.shelf ==="none") && "\u2713"}
           None</option>
         </select>
       </div>

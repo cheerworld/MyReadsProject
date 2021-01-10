@@ -16,9 +16,9 @@ class BookShelves extends Component {
             <h2 className="bookshelf-title">{shelf.title}</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {bookList.map(book => (
+                {bookList.map((book) => (
                   (shelf.id===book.shelf) && (
-                    <BookInfo key={book.id} book={book} shelf={shelf} updateBookStatus={updateBookStatus}/>
+                    <BookInfo key={book.id} book={book} updateBookStatus={updateBookStatus}/>
                   )
                 ))}
               </ol>
@@ -33,7 +33,3 @@ class BookShelves extends Component {
 }
 
 export default BookShelves;
-
-/*
-
-*/

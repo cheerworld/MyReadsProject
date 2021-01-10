@@ -4,21 +4,8 @@ import './App.css';
 import BookShelves from './BookShelves';
 import SearchBook from './SearchBook';
 import { Route, Link } from 'react-router-dom';
+import { shelves } from './Shelves';
 
-const shelves = [
-  {
-    title: "Currently Reading",
-    id: "currentlyReading"
-  },
-  {
-    title: "Want To Read",
-    id: "wantToRead"
-  },
-  {
-    title: "Read",
-    id:"read"
-  }
-];
 
 class BooksApp extends React.Component {
   state = {
@@ -27,10 +14,10 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll()
-    .then(data=>{
+    .then(data => {
       console.log(data);
-      this.setState((preState)=>({
-        bookList: preState.bookList.concat(data),
+      this.setState(({ bookList }) => ({
+        bookList: bookList.concat(data),
       }))
     })
   }
@@ -40,7 +27,7 @@ class BooksApp extends React.Component {
     try {
       await BooksAPI.update(book, shelf);
 
-      this.setState(({ bookList })=>{
+      this.setState(({ bookList }) => {
         let updateBookList = bookList.filter(({ id }) => id!==book.id);
         console.log(updateBookList);
         if (shelf!=="none") {
@@ -56,10 +43,6 @@ class BooksApp extends React.Component {
     }
 
   }
-
-
-
-
 
 
   render() {
