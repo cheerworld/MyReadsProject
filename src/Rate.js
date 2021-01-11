@@ -52,7 +52,7 @@ class Rate extends Component {
          <div>
           {(this.documentData)?
             ( <div>
-              <p className="rating">Rating:{this.documentData.rate} Stars</p>
+              <p className="rating">Rating:{this.state.rate} Stars</p>
               <button onClick={this.clickRemove}>Remove</button>
               </div>
             )
