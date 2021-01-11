@@ -19,11 +19,9 @@ class Rate extends Component {
     if (this.state.rate!=="") {
     localStorage.setItem(this.props.book.id,JSON.stringify(this.state));
     }
-    //localStorage.removeItem(this.props.book.id);
+
 
     console.log(localStorage)
-
-
 
   }
 
@@ -33,6 +31,14 @@ class Rate extends Component {
     if (localStorage.getItem(this.props.book.id)) {
     this.setState({rate:this.documentData.rate});
   }
+
+  }
+
+  clickRemove = () => {
+    localStorage.removeItem(this.props.book.id);
+    if (!localStorage.getItem(this.props.book.id)) {
+      this.setState({rate: ""})
+    }
   }
 
   render () {
@@ -42,23 +48,30 @@ class Rate extends Component {
 
     return (
 
-       <form className="rateForm" onSubmit={this.formSubmit}>
 
-          <input type="number"
-            className="rateInput"
-            placeholder="Rate it"
-            min="1"
-            max="5"
-            value={this.state.rate}
-            onChange={this.updateRate}
-            />
-
-
-          <button type="Submit">Rate it</button>
-          {(this.documentData) && (<p className="rating">Rating:{this.state.rate} Stars</p>)}
-       </form>
-
-    )
+         <div>
+          {(this.documentData)?
+            ( <div>
+              <p className="rating">Rating:{this.documentData.rate} Stars</p>
+              <button onClick={this.clickRemove}>Remove</button>
+              </div>
+            )
+            : (
+              <form className="rateForm" onSubmit={this.formSubmit}>
+              <input type="number"
+              className="rateInput"
+              placeholder="Rate it"
+              min="1"
+              max="5"
+              value={this.state.rate}
+              onChange={this.updateRate}
+              />
+              <button type="Submit">Rate it</button>
+              </form>
+              )
+           }
+          </div>
+  )
   }
 }
 
