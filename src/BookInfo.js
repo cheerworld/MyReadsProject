@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ControlSelect from './ControlSelect';
+import Rate from './Rate';
 
 class BookInfo extends Component {
 
@@ -26,8 +27,13 @@ class BookInfo extends Component {
              />
 
           </div>
+          {book.shelf==="read" && <Rate
+            book={book}
+          />}
+
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{book.authors || 'No Author Listed'}</div>
+
         </div>
       </li>
     )

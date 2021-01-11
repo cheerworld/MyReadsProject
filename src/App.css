@@ -54,6 +54,22 @@ h2.bookshelf-title {
 div.book-title, div.book-authors {
   color:#184d47;
 }
+
+.rateForm {
+  margin-top: 15px;
+}
+
+.rateInput {
+  width: 45%;
+}
+
+.rating {
+  color: #fad586;
+  background-color: #184d47;
+  width: 75%;
+  padding-left: 2px;
+}
+
 .open-search {
   position: fixed;
   right: 25px;
