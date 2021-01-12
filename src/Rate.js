@@ -17,12 +17,13 @@ class Rate extends Component {
 
   formSubmit = e => {
     e.preventDefault();
+    const bookId = this.props.book.id;
     if (this.state.rate !== "") {
-      localStorage.setItem(this.props.book.id, JSON.stringify(this.state));
+      localStorage.setItem(bookId, JSON.stringify(this.state));
     }
 
-    this.documentData = JSON.parse(localStorage.getItem(this.props.book.id));
-    if (localStorage.getItem(this.props.book.id)) {
+    this.documentData = JSON.parse(localStorage.getItem(bookId));
+    if (localStorage.getItem(bookId)) {
       this.setState({ rate: this.documentData.rate });
     }
     //console.log(localStorage);

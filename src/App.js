@@ -61,6 +61,18 @@ class BooksApp extends React.Component {
                   <button>Add a book</button>
                 </Link>
               </div>
+              <footer>
+                <p className="footerP">
+                  <span role="img" aria-label="Diya Lamp">
+                    🪔{" "}
+                  </span>
+                  Made by Yuguo Zhao
+                  <span role="img" aria-label="Books">
+                    {" "}
+                    📚
+                  </span>
+                </p>
+              </footer>
             </div>
           )}
         />

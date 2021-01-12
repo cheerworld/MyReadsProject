@@ -13,9 +13,10 @@ body, .app {
 /* main page */
 
 .list-books-title {
-  padding: 10px 0;
+  padding: 15px 0;
   background: #184d47;
   text-align: center;
+  font-size: 1.5rem;
 }
 
 .list-books-title h1 {
@@ -42,6 +43,19 @@ button.remove {
 button.submit {
   color: #184d47;
   background-color: #fad586;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  background-color: #184d47;
+}
+
+.footerP {
+  font-size: 1rem;
+  color: #fad586;
+  padding-top: 20px;
 }
 
 @media (min-width: 600px) {
@@ -97,7 +111,7 @@ div.book-title, div.book-authors {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 1px 6px #fad586, 0 1px 6px #fad586;
   font-size: 0;
   outline: 0;
 }
