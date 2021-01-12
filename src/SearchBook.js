@@ -31,7 +31,6 @@ class SearchBook extends Component {
   };
 
   render() {
-    //console.log(findBooks)
     const { searchResults } = this.state;
     //console.log(searchResults)
 
@@ -49,7 +48,7 @@ class SearchBook extends Component {
         return (
           <BookInfo
             key={book.id}
-            book={{...book, shelf: matchShelf}}
+            book={{ ...book, shelf: matchShelf }}
             updateBookStatus={this.props.updateBookStatus}
           />
         );
@@ -64,7 +63,6 @@ class SearchBook extends Component {
           </Link>
 
           <div className="search-books-input-wrapper">
-
             <input
               type="text"
               placeholder="Search by title or author"

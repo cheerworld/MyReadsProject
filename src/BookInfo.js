@@ -1,44 +1,33 @@
-import React, { Component } from "react";
-import ControlSelect from './ControlSelect';
-import Rate from './Rate';
+import React from "react";
+import ControlSelect from "./ControlSelect";
+import Rate from "./Rate";
 
-class BookInfo extends Component {
+function BookInfo(props) {
+  const { book, updateBookStatus } = props;
 
+  return (
+    <li>
+      <div className="book">
+        <div className="book-top">
+          <div
+            className="book-cover"
+            style={{
+              width: 128,
+              height: 193,
+              backgroundImage: `url(${book.imageLinks &&
+                book.imageLinks.thumbnail})`
+            }}
+          />
 
-  render() {
-    const { book, updateBookStatus } = this.props;
-
-    return (
-      <li>
-        <div className="book">
-          <div className="book-top">
-            <div
-              className="book-cover"
-              style={{
-                width: 128,
-                height: 193,
-                backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})`
-              }}
-            />
-
-            <ControlSelect
-              book={book}
-              updateBookStatus={updateBookStatus}
-             />
-
-          </div>
-          {book.shelf==="read" && <Rate
-            book={book}
-          />}
-
-          <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors || 'No Author Listed'}</div>
-
+          <ControlSelect book={book} updateBookStatus={updateBookStatus} />
         </div>
-      </li>
-    )
+        {book.shelf === "read" && <Rate book={book} />}
 
-  }
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors || "No Author Listed"}</div>
+      </div>
+    </li>
+  );
 }
 
 export default BookInfo;
