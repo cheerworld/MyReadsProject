@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Rate extends Component {
   documentData;
@@ -53,7 +54,9 @@ class Rate extends Component {
             <p className="rating">
               Rating:{docRate === "1" ? `${docRate} Star` : `${docRate} Stars`}
             </p>
-            <button className="remove" onClick={this.clickRemove}>Remove</button>
+            <button className="remove" onClick={this.clickRemove}>
+              Remove
+            </button>
           </div>
         ) : (
           <form className="rateForm" onSubmit={this.formSubmit}>
@@ -66,12 +69,18 @@ class Rate extends Component {
               value={this.state.rate}
               onChange={this.updateRate}
             />
-            <button className="submit" type="Submit">Rate it</button>
+            <button className="submit" type="Submit">
+              Rate it
+            </button>
           </form>
         )}
       </div>
     );
   }
 }
+
+Rate.propTypes = {
+  book: PropTypes.object.isRequired
+};
 
 export default Rate;

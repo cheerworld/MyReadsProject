@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { shelves } from "./Shelves";
+import PropTypes from "prop-types";
 
 class ControlSelect extends Component {
   updateBookShelf = e => {
@@ -38,5 +39,10 @@ class ControlSelect extends Component {
     );
   }
 }
+
+ControlSelect.propTypes = {
+  book: PropTypes.object.isRequired,
+  updateBookStatus: PropTypes.func.isRequired
+};
 
 export default ControlSelect;

@@ -1,6 +1,8 @@
 import React from "react";
 import ControlSelect from "./ControlSelect";
 import Rate from "./Rate";
+import PropTypes from "prop-types";
+
 
 function BookInfo(props) {
   const { book, updateBookStatus } = props;
@@ -28,6 +30,11 @@ function BookInfo(props) {
       </div>
     </li>
   );
+}
+
+BookInfo.propTypes = {
+  book: PropTypes.object.isRequired,
+  updateBookStatus: PropTypes.func.isRequired,
 }
 
 export default BookInfo;
