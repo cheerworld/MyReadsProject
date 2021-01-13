@@ -2,58 +2,57 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class Rate extends Component {
-  documentData;
-
   state = {
-    rate: ""
+    rate: "",
+    isRated: false
   };
 
   updateRate = e => {
-    const value = e.target.value;
-    this.setState(preState => ({
-      rate: value
-    }));
+    const rate = e.target.value;
+    this.setState({ rate });
   };
+
+  setLocalStore = () =>
+    localStorage.setItem(this.props.book.id, this.state.rate);
+
+  getLocalStore = () => localStorage.getItem(this.props.book.id);
+
+  removeLocalStore = () => localStorage.removeItem(this.props.book.id);
 
   formSubmit = e => {
     e.preventDefault();
-    const bookId = this.props.book.id;
     if (this.state.rate !== "") {
-      localStorage.setItem(bookId, JSON.stringify(this.state));
+      this.setLocalStore();
     }
-
-    this.documentData = JSON.parse(localStorage.getItem(bookId));
-    if (localStorage.getItem(bookId)) {
-      this.setState({ rate: this.documentData.rate });
-    }
+    this.setState({ isRated: true });
     //console.log(localStorage);
   };
 
   componentDidMount() {
-    this.documentData = JSON.parse(localStorage.getItem(this.props.book.id));
-    //console.log(this.documentData);
-    if (localStorage.getItem(this.props.book.id)) {
-      this.setState({ rate: this.documentData.rate });
-    }
+    const rating = this.getLocalStore();
+    this.setState({
+      rate: rating || "",
+      isRated: rating !== null
+    });
   }
 
   clickRemove = () => {
-    localStorage.removeItem(this.props.book.id);
-    if (!localStorage.getItem(this.props.book.id)) {
-      this.setState({ rate: "" });
-      this.documentData.rate = "";
-    }
+    this.removeLocalStore();
+    this.setState({
+      rate: "",
+      isRated: false
+    });
   };
 
   render() {
-    const docRate = this.documentData ? this.documentData.rate : "";
+    const { rate, isRated } = this.state;
 
     return (
       <div>
-        {this.documentData && docRate !== "" ? (
+        {isRated ? (
           <div>
             <p className="rating">
-              Rating:{docRate === "1" ? `${docRate} Star` : `${docRate} Stars`}
+              Rating:{`${rate} Star${rate === "1" ? "" : "s"}`}
             </p>
             <button className="remove" onClick={this.clickRemove}>
               Remove
@@ -67,7 +66,7 @@ class Rate extends Component {
               placeholder="Rate it"
               min="1"
               max="5"
-              value={this.state.rate}
+              value={rate}
               onChange={this.updateRate}
             />
             <button className="submit" type="Submit">
