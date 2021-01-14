@@ -26,7 +26,7 @@ function BookInfo(props) {
         {book.shelf === "read" && <Rate book={book} />}
 
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors || "No Author Listed"}</div>
+        <div className="book-authors">{book.authors? book.authors.join(", ") : "No Author Listed"}</div>
       </div>
     </li>
   );
