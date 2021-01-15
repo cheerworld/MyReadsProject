@@ -1,6 +1,6 @@
 # MyReads Project
 
-This is a Project that used React. I am building a book list app that has 3 shelves, books that you are currently reading, books that you want to read and books that you read. There is a backend server file provided for you to get books you want to add to your shelves. You can check out SEARCH_TERMS.md to find out the terms you can search for the books.
+This is a Project that used React. I am building a book list app that has 3 shelves, books that you are currently reading, books that you want to read and books that you read. You can move your books around from shelf to shelf. You can search for books in the search page and add books to your shelves. There is a backend server file provided for you to get books you want to add to your shelves. You can check out SEARCH_TERMS.md to find out the terms you can search for the books.
 
 ## App View
 
