@@ -3,8 +3,9 @@ import * as BooksAPI from "./BooksAPI";
 import "./App.css";
 import BookShelves from "./BookShelves";
 import SearchBook from "./SearchBook";
-import { Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import { shelves } from "./Shelves";
+import ErrorPage404 from "./ErrorPage404";
 
 class BooksApp extends React.Component {
   state = {
@@ -40,49 +41,56 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <div className="list-books">
+                <div className="list-books-title">
+                  <h1>MyReads</h1>
+                </div>
+                <BookShelves
+                  shelves={shelves}
+                  bookList={bookList}
+                  updateBookStatus={this.updateBookStatus}
+                />
+                <Link to="/doesNotExist">
+                  <button className="error404">404</button>
+                </Link>
+                <div className="open-search">
+                  <Link to="/search">
+                    <button>Add a book</button>
+                  </Link>
+                </div>
+                <footer>
+                  <p className="footerP">
+                    <span role="img" aria-label="Diya Lamp">
+                      🪔{" "}
+                    </span>
+                    Made by Yuguo Zhao
+                    <span role="img" aria-label="Books">
+                      {" "}
+                      📚
+                    </span>
+                  </p>
+                </footer>
               </div>
-              <BookShelves
-                shelves={shelves}
+            )}
+          />
+
+          <Route
+            path="/search"
+            render={() => (
+              <SearchBook
                 bookList={bookList}
                 updateBookStatus={this.updateBookStatus}
               />
-              <div className="open-search">
-                <Link to="/search">
-                  <button>Add a book</button>
-                </Link>
-              </div>
-              <footer>
-                <p className="footerP">
-                  <span role="img" aria-label="Diya Lamp">
-                    🪔{" "}
-                  </span>
-                  Made by Yuguo Zhao
-                  <span role="img" aria-label="Books">
-                    {" "}
-                    📚
-                  </span>
-                </p>
-              </footer>
-            </div>
-          )}
-        />
+            )}
+          />
 
-        <Route
-          path="/search"
-          render={() => (
-            <SearchBook
-              bookList={bookList}
-              updateBookStatus={this.updateBookStatus}
-            />
-          )}
-        />
+          <Route component={ErrorPage404} />
+        </Switch>
       </div>
     );
   }
